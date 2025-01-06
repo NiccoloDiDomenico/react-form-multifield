@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 
 const initialFormData = {
   title: "",
@@ -8,7 +6,8 @@ const initialFormData = {
   author: "",
   image: "",
   category: "",
-  state: ""
+  state: "",
+  share: false
 }
 
 function App() {
@@ -21,7 +20,9 @@ function App() {
   // Funzioni
   function handleInputChange(event) {
     const keyToChange = event.target.name
-    const valueToChange = event.target.value
+    const valueToChange =
+      event.target.type === "checkbox" ?
+        event.target.checked : event.target.value
 
     const newData = {
       ...formData,
@@ -89,6 +90,19 @@ function App() {
                 <option value="Tech">Tech</option>
                 <option value="Business">Business</option>
               </select>
+            </div>
+            {/* Checkbox */}
+            <div className="form-check mt-3">
+              <label className="form-check-label" htmlFor="instagramCheck">
+                Condividi su <a href="">Instagram</a>
+              </label>
+              <input className="form-check-input" type="checkbox" id="instagramCheck" name='share' checked={formData.share} onChange={handleInputChange} />
+            </div>
+            <div className="form-check mt-3">
+              <label className="form-check-label" htmlFor="facebookCheck">
+                Condividi su <a href="">Facebook</a>
+              </label>
+              <input className="form-check-input" type="checkbox" id="facebookCheck" name='share' checked={formData.share} onChange={handleInputChange} />
             </div>
             {/* Submit btn */}
             <button type='submit' className='btn btn-danger my-3'>Invia</button>
