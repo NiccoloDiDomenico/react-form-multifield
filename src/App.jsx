@@ -11,25 +11,40 @@ const initialFormData = {
   check2: false
 }
 
+const initialCheckboxMessage = {
+  checkboxMessage1: (""),
+  checkboxMessage2: ("")
+}
+
 function App() {
   // Variabili reattive
   const [postList, setPostList] = useState([])
-  const [checkboxMessage1, setCheckboxMessage1] = useState('')
-  const [checkboxMessage2, setCheckboxMessage2] = useState('')
+  // const [checkboxMessage1, setCheckboxMessage1] = useState('')
+  // const [checkboxMessage2, setCheckboxMessage2] = useState('')
 
 
   // Variabili reattive per Input
   const [formData, setFormData] = useState(initialFormData)
+  const [checkboxMessage, setCheckboxMessage] = useState(initialCheckboxMessage)
 
   useEffect(() => {
     // console.log("componente Mounting");
+    const newCheckboxMessage1 = {
+      ...checkboxMessage,
+      checkboxMessage1: " - Dovrai eseguire l'accesso al social"
+    }
+
+    const newCheckboxMessage2 = {
+      ...checkboxMessage,
+      checkboxMessage2: " - Dovrai eseguire l'accesso al social"
+    }
+
     if (formData.check1) {
-      setCheckboxMessage1(" - Dovrai eseguire l'accesso al social")
+      setCheckboxMessage(newCheckboxMessage1)
     } else if (formData.check2) {
-      setCheckboxMessage2(" - Dovrai eseguire l'accesso al social")
+      setCheckboxMessage(newCheckboxMessage2)
     } else {
-      setCheckboxMessage1("")
-      setCheckboxMessage2("")
+      setCheckboxMessage(initialCheckboxMessage)
     }
     // return console.log("componente Unmounting");
   }, [formData.check1, formData.check2])
@@ -112,14 +127,14 @@ function App() {
             <div className="form-check mt-3">
               <label className="form-check-label" htmlFor="instagramCheck">
                 <span>Condividi su Instagram </span>
-                <span>{checkboxMessage1}</span>
+                <span>{checkboxMessage.checkboxMessage1}</span>
               </label>
               <input className="form-check-input" type="checkbox" id="instagramCheck" name='check1' checked={formData.share} onChange={handleInputChange} />
             </div>
             <div className="form-check mt-3">
               <label className="form-check-label" htmlFor="facebookCheck">
                 <span>Condividi su Facebook </span>
-                <span>{checkboxMessage2}</span>
+                <span>{checkboxMessage.checkboxMessage2}</span>
               </label>
               <input className="form-check-input" type="checkbox" id="facebookCheck" name='check2' checked={formData.share} onChange={handleInputChange} />
             </div>
