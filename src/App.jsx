@@ -19,9 +19,6 @@ const initialCheckboxMessage = {
 function App() {
   // Variabili reattive
   const [postList, setPostList] = useState([])
-  // const [checkboxMessage1, setCheckboxMessage1] = useState('')
-  // const [checkboxMessage2, setCheckboxMessage2] = useState('')
-
 
   // Variabili reattive per Input
   const [formData, setFormData] = useState(initialFormData)
