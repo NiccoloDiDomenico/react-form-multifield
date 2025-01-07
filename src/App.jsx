@@ -13,7 +13,8 @@ const initialFormData = {
 
 const initialCheckboxMessage = {
   checkboxMessage1: (""),
-  checkboxMessage2: ("")
+  checkboxMessage2: (""),
+  bothCheckboxes: ("")
 }
 
 function App() {
@@ -26,22 +27,29 @@ function App() {
 
   useEffect(() => {
     // console.log("componente Mounting");
+    const newBothCheckboxMessage = {
+      ...checkboxMessage,
+      bothCheckboxes: "Eseguire l'accesso ad Instagram e Facebook"
+    }
+
     const newCheckboxMessage1 = {
       ...checkboxMessage,
-      checkboxMessage1: " - Dovrai eseguire l'accesso al social"
+      checkboxMessage1: "Esegui l'accesso ad Instagram"
     }
 
     const newCheckboxMessage2 = {
       ...checkboxMessage,
-      checkboxMessage2: " - Dovrai eseguire l'accesso al social"
+      checkboxMessage2: "Esegui l'accesso a Facebook"
     }
 
-    if (formData.check1) {
-      setCheckboxMessage(newCheckboxMessage1)
+    if (formData.check1 && formData.check2) {
+      setCheckboxMessage(newBothCheckboxMessage);
+    } else if (formData.check1) {
+      setCheckboxMessage(newCheckboxMessage1);
     } else if (formData.check2) {
-      setCheckboxMessage(newCheckboxMessage2)
+      setCheckboxMessage(newCheckboxMessage2);
     } else {
-      setCheckboxMessage(initialCheckboxMessage)
+      setCheckboxMessage(initialCheckboxMessage);
     }
     // return console.log("componente Unmounting");
   }, [formData.check1, formData.check2])
@@ -124,16 +132,19 @@ function App() {
             <div className="form-check mt-3">
               <label className="form-check-label" htmlFor="instagramCheck">
                 <span>Condividi su Instagram </span>
-                <span>{checkboxMessage.checkboxMessage1}</span>
               </label>
               <input className="form-check-input" type="checkbox" id="instagramCheck" name='check1' checked={formData.share} onChange={handleInputChange} />
             </div>
             <div className="form-check mt-3">
               <label className="form-check-label" htmlFor="facebookCheck">
                 <span>Condividi su Facebook </span>
-                <span>{checkboxMessage.checkboxMessage2}</span>
               </label>
               <input className="form-check-input" type="checkbox" id="facebookCheck" name='check2' checked={formData.share} onChange={handleInputChange} />
+            </div>
+            <div className='pt-2'>
+              <span>{checkboxMessage.checkboxMessage1}</span>
+              <span>{checkboxMessage.checkboxMessage2}</span>
+              <div>{checkboxMessage.bothCheckboxes}</div>
             </div>
             {/* Submit btn */}
             <button type='submit' className='btn btn-danger my-3'>Invia</button>
